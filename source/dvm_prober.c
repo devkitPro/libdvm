@@ -141,10 +141,8 @@ static unsigned _dvmReadPartitionTable(DvmDisc* disc, DvmPartInfo* out, unsigned
 		part->index = i;
 		part->type = type;
 		part->fstype = NULL;
-		memcpy(&part->start_sector, mbr_part[i].start_lba_le, 4);
-		part->start_sector = le32(part->start_sector);
-		memcpy(&part->num_sectors, mbr_part[i].num_sectors_le, 4);
-		part->num_sectors = le32(part->num_sectors);
+		part->start_sector = _dvmRead32(mbr_part[i].start_lba_le, 0);
+		part->num_sectors = _dvmRead32(mbr_part[i].num_sectors_le, 0);
 
 		sec_t part_end = part->start_sector + part->num_sectors;
 		if (part_end > total_used_sectors) {
