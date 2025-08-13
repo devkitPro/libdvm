@@ -537,7 +537,7 @@ int FAT_setAttr(const char* path, unsigned attr)
 		return -1;
 	}
 
-	FRESULT fr = f_chmod(&vol->fs, _FAT_strip_device(path), 0xff, attr);
+	FRESULT fr = f_chmod(&vol->fs, _FAT_strip_device(path), attr, 0xff);
 
 	return _FAT_set_errno(fr, NULL) ? 0 : -1;
 }
